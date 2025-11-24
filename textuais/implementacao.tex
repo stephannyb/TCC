@@ -5,7 +5,7 @@
 \mychapter{IMPLEMENTAÇÃO}\label{Cap:Implementacao}
 
 \section{VISÃO GERAL DO DESENVOLVIMENTO}
-O desenvolvimento do \textbf{MarIA \- Um Chatbot Inteligente para Atendimento de Vítimas de Violência contra a Mulher} foi realizado de forma iterativa e flexível, com características de prototipação experimental. Essa abordagem permitiu construir, testar e aprimorar rapidamente componentes do sistema antes de sua consolidação final.  
+O desenvolvimento do \textbf{MarIA \- Um \textit{Chatbot} Inteligente para Atendimento de Vítimas de Violência contra a Mulher} foi realizado de forma iterativa e flexível, com características de prototipação experimental. Essa abordagem permitiu construir, testar e aprimorar rapidamente componentes do sistema antes de sua consolidação final.  
 
 O projeto foi implementado como um conjunto de serviços integrados, orquestrados via \textit{Docker Compose}, incluindo um \textit{bot} para interação com o usuário, agentes LLM para processamento de linguagem natural, um banco de dados relacional e um \textit{dashboard} para visualização de dados e métricas. 
 
@@ -21,7 +21,7 @@ O projeto foi estruturado com base em uma arquitetura de microsserviços, organi
 
 A arquitetura é composta por cinco serviços principais: o Bot, responsável pela interface com o usuário via Telegram, recebendo mensagens, estruturando requisições e encaminhando os dados para a API;\@ a API (Agentes), que implementa a lógica de processamento das ocorrências, utilizando agentes especializados em extrair informações estruturadas; o Banco de Dados (PostgreSQL), que armazena de forma segura as ocorrências processadas; o Dashboard, desenvolvido em Python com Streamlit para visualização de dados; e o PgAdmin, ferramenta de administração do banco de dados, utilizada para consultas e manutenção.
 
-A comunicação entre esses serviços ocorre principalmente via API REST, com o uso de requisições HTTP e troca de dados em formato JSON.\@
+A comunicação entre esses serviços ocorre principalmente via \textit{API REST}, com o uso de requisições HTTP e troca de dados em formato JSON.\@
 
 A comunicação entre os serviços é fundamentada em padrões consolidados da web. O estilo arquitetural \textit{REST\nomenclature{REST}{Representational State Transfer}} (\emph{Representational State Transfer}) define um conjunto de restrições para a criação de serviços web interoperáveis. Uma de suas principais características é a comunicação sem estado (\emph{stateless}), onde cada requisição do cliente para o servidor deve conter toda a informação necessária para ser compreendida e processada.
 
@@ -37,7 +37,7 @@ Essa padronização garante interoperabilidade e facilita a integração futura 
     \footnotesize{Fonte: Produção da Autora.}\label{fig:arquitetura-maria}
 \end{figure}
 
-\subsection{Comunicação via API REST}
+\subsection{Comunicação via \textit{API REST}}
 
 A API expõe dois \textit{endpoints} principais:
 
@@ -84,7 +84,7 @@ Além da definição dos \textit{endpoints}, foi projetada uma estrutura padroni
 
 \subsubsection{Resposta HTTP Padrão}
 
-Uma Resposta HTTP Padrão, no contexto de uma API REST, é um modelo de estrutura de dados consistente retornado pelo servidor após o processamento de uma requisição. Adotar um padrão é uma boa prática no desenvolvimento de software, pois torna a comunicação entre o cliente (neste caso, o \textit{bot}) e o servidor mais previsível e robusta. A estrutura geralmente inclui um indicador de sucesso da operação (\textit{booleano}), uma mensagem descritiva para o usuário ou desenvolvedor e, em caso de sucesso, o corpo dos dados solicitados. Essa abordagem simplifica o tratamento de sucessos e erros de forma uniforme em toda a aplicação~\cite{richardson2007restful}.
+Uma Resposta HTTP Padrão, no contexto de uma \textit{API REST}, é um modelo de estrutura de dados consistente retornado pelo servidor após o processamento de uma requisição. Adotar um padrão é uma boa prática no desenvolvimento de software, pois torna a comunicação entre o cliente (neste caso, o \textit{bot}) e o servidor mais previsível e robusta. A estrutura geralmente inclui um indicador de sucesso da operação (\textit{booleano}), uma mensagem descritiva para o usuário ou desenvolvedor e, em caso de sucesso, o corpo dos dados solicitados. Essa abordagem simplifica o tratamento de sucessos e erros de forma uniforme em toda a aplicação~\cite{richardson2007restful}.
 
 \begin{verbatim}
 {
