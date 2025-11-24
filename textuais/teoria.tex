@@ -1,0 +1,147 @@
+%%
+%% Capítulo 2: Regras gerais de estilo
+%%
+\mychapter{FUNDAMENTAÇÃO TEÓRICA}\label{Cap:Teoria}
+
+Este capítulo tem como objetivo apresentar os fundamentos teóricos que sustentam o desenvolvimento deste trabalho. São abordados aspectos relacionados à violência contra a mulher, no contexto brasileiro e potiguar, incluindo dados estatísticos e legislações relevantes, com o intuito de contextualizar a importância de soluções tecnológicas voltadas ao acolhimento de vítimas. Em seguida, são discutidos os conceitos de \textit{chatbots}, inteligência artificial e Processamento de Linguagem Natural (PLN\nomenclature{PLN}{Processamento de Linguagem Natural}), bem como questões éticas, de privacidade e segurança digital envolvidas no uso dessas tecnologias em contextos sensíveis. Por fim, examinam-se iniciativas similares já existentes, a fim de identificar lacunas e justificar a proposta deste projeto.
+
+\section{VIOLÊNCIA CONTRA A MULHER: ASPECTOS CONCEITUAIS E ESTATÍSTICOS}
+
+\subsection{Definições e Tipos de Violência}
+
+A violência contra a mulher é um fenômeno complexo e multifacetado que atinge mulheres de diferentes idades, classes sociais, etnias e regiões. Segundo a lei brasileira número 11.340, De 7 de Agosto de 2006, conhecida como Lei Maria da Penha, a violência doméstica e familiar contra a mulher é qualquer ação ou omissão baseada no gênero que lhe cause morte, lesão, sofrimento físico, sexual ou psicológico, e dano moral ou patrimonial~\cite{LeiMariaDaPenha}.
+
+A lei também define cinco tipos principais de violência:
+
+\begin{itemize}
+    \item \textbf{Violência física}: qualquer conduta que ofenda sua integridade ou saúde corporal;
+    \item \textbf{Violência psicológica}: conduta que cause dano emocional, diminuição da autoestima, controle de comportamentos, ameaças, humilhações ou isolamento;
+    \item \textbf{Violência sexual}: qualquer ação que a force a presenciar, manter ou participar de relação sexual não desejada;
+    \item \textbf{Violência patrimonial}: retenção, subtração ou destruição de bens, documentos ou valores da mulher;
+    \item \textbf{Violência moral}: calúnia, difamação ou injúria.
+\end{itemize}
+
+Essas formas de agressão se inter-relacionam e, frequentemente, coexistem no cotidiano das vítimas, com impactos profundos na saúde mental, na autonomia e no bem-estar das mulheres.
+
+\subsection{Panorama da Violência contra a Mulher no Brasil e no Rio Grande do Norte}
+
+Apesar dos avanços legais e institucionais, a violência contra a mulher permanece sendo um grave problema de saúde pública e de direitos humanos no Brasil. De acordo com~\cite{forum2023}, em 2023, o país registrou mais de 1.400 casos de feminicídio e mais de 245 mil casos de lesão corporal dolosa em contexto de violência doméstica.
+No estado do Rio Grande do Norte, a situação também é preocupante. Segundo levantamento do~\cite{datasenado2023}, 29\% das mulheres potiguares afirmam já ter sofrido algum tipo de violência doméstica ou familiar, e 21\% relataram violência nos doze meses anteriores à pesquisa. Dentre essas, 89\% sofreram violência psicológica, 82\% violência física, e 81\% violência moral. Outro dado alarmante aponta que 40\% das vítimas no estado sofreram a primeira agressão antes dos 19 anos de idade.
+
+Além disso, houve um crescimento significativo na demanda por medidas protetivas. Em 2024, o estado registrou 13.005 medidas protetivas julgadas, um aumento de mais de 3 mil casos em relação a 2023~\cite{saibamais2025}. Os atendimentos por meio da Central de Atendimento à Mulher — Ligue 180 — também cresceram, totalizando 10.276 atendimentos em 2024, com aumento de 13{,}7\% em relação ao ano anterior, apesar de as denúncias formais terem apresentado uma leve queda.
+
+Esses dados evidenciam a persistência da violência de gênero e a urgência de políticas públicas eficazes e acessíveis. A utilização de tecnologias digitais, como \textit{chatbots}, pode representar uma estratégia complementar de apoio, acolhimento e orientação às vítimas, especialmente na superação de barreiras como o medo de denunciar, o isolamento ou a falta de acesso a canais formais.
+
+\section{\textit{CHATBOTS} E ASSISTENTES VIRTUAIS}
+
+\subsection{Conceito e Evolução dos \textit{Chatbots}}
+
+\textit{Chatbots} são sistemas computacionais capazes de interagir com seres humanos por meio da linguagem natural, geralmente por texto ou voz. Seu propósito é simular uma conversa humana de forma fluida, automatizando tarefas, respondendo perguntas ou guiando o usuário em fluxos predefinidos~\cite{aquino2018chatbot}.
+
+Os primeiros \textit{chatbots} surgiram na década de 1960, como o famoso \textit{ELIZA}, criado por Joseph Weizenbaum. Desde então, os avanços em processamento de linguagem natural, inteligência artificial e aprendizado de máquina (AM) tornaram os \textit{Chatbots} muito mais sofisticados e eficientes~\cite{jurafsky2021speech}. 
+
+Hoje, \textit{Chatbots} são amplamente utilizados em serviços bancários, comércio eletrônico, saúde e educação, desempenhando desde funções simples, baseadas em regras, até interações complexas com suporte a intenções, entidades e personalização do diálogo.
+
+\subsection{Arquitetura}
+
+A arquitetura de um \textit{chatbot} pode variar conforme sua complexidade. \textit{chatbots} simples são baseados em regras e funcionam por meio de árvores de decisão ou fluxos condicionais. Já os mais avançados utilizam técnicas de IA, especialmente PLN, para interpretar intenções, reconhecer entidades e gerar respostas mais naturais~\cite{serban2017survey}.
+
+A construção de chatbots modernos é frequentemente apoiada por \textit{frameworks}, que podem ser definidos como um conjunto de ferramentas, bibliotecas e boas práticas que oferecem uma estrutura base para o desenvolvimento de software, agilizando o processo e promovendo a reutilização de código~\cite{pressman2016engenharia}. No ecossistema de agentes conversacionais, algumas das plataformas mais proeminentes incluem o \textit{Dialogflow}, uma plataforma do \textit{Google} que fornece ferramentas de PLN para projetar e integrar interfaces de conversação, destacando-se pela capacidade de reconhecer a intenção do usuário~\cite{google2024dialogflow}. Outra solução é o \textit{Microsoft Bot Framework}, um serviço da \textit{Microsoft} que oferece um ambiente de desenvolvimento integrado para a criação, teste e implantação de bots inteligentes em diversas plataformas~\cite{microsoft2024bot}.
+
+As tecnologias frequentemente empregadas incluem \textit{frameworks} como \textit{Dialogflow, Microsoft Bot Framework} e arquiteturas baseadas em modelos de linguagem como transformador generativo pré-treinando (\textit{Generative Pretrained Transformer} \- GPT\nomenclature{GPT}{ Generative Pre-Trained Transformer})~\cite{brown2020language}. Esses sistemas combinam componentes como classificadores de intenções, extratores de entidades, geradores de resposta e mecanismos de diálogo.
+
+Ademais, muitos desses \textit{frameworks} integram funcionalidades como análise de sentimentos, contexto de sessão e conectores com bancos de dados e APIs externas, permitindo o desenvolvimento de \textit{chatbots} capazes de fornecer serviços mais adaptados às necessidades dos usuários.
+
+\subsection{Tecnologias Aplicadas}
+
+Nesta seção, são apresentadas as principais tecnologias utilizadas no desenvolvimento da solução MarIA, incluindo o ambiente de execução \textit{Node.js}, o sistema de banco de dados \textit{PostgreSQL} e a plataforma de orquestração de contêineres \textit{Docker}.
+
+\subsubsection{\textit{Node.js}}
+
+\textit{JavaScript} (JS) é, de acordo com o \textit{Mozila Developer Network}~\cite{mdn2022javascript}, uma linguagem de programação interpretada e orientada a objetos, que roda em muitos ambientes, sendo utilizada principalmente em navegadores.
+
+O \textit{Node.js} é um ambiente de execução de \textit{JavaScript} do lado do servidor (\emph{server-side}), de código aberto e multiplataforma. Ele permite que os desenvolvedores executem código \textit{JavaScript} fora de um navegador web, sendo amplamente utilizado para construir aplicações de rede escaláveis, como APIs e microsserviços. Sua arquitetura orientada a eventos e seu modelo de I/O (entrada e saída) não bloqueante o tornam eficiente para lidar com múltiplas conexões simultâneas~\cite{openjs2023nodejs}.
+
+\subsubsection{\textit{PostgreSQL}}
+
+O \textit{PostgreSQL} é um sistema de gerenciamento de banco de dados objeto-relacional de código aberto, conhecido por sua robustez, conformidade com os padrões linguagem de consulta estruturada (\textit{Structured Query Language} \- SQL\nomenclature{SQL}{Structured Query Language}) e conjunto avançado de funcionalidades. Ele oferece suporte a uma vasta gama de tipos de dados, incluindo suporte nativo a \textit{JSON}, e permite a criação de funções e procedimentos armazenados em diversas linguagens. Sua confiabilidade e escalabilidade o tornam uma escolha popular para aplicações que demandam alta integridade de dados~\cite{postgresql2024}.
+
+\subsubsection{\textit{Docker}}
+
+\textit{Docker} é uma plataforma de código aberto que automatiza a implantação, o dimensionamento e a gestão de aplicações por meio da tecnologia de contêineres. Um contêiner encapsula uma aplicação e todas as suas dependências, bibliotecas, configurações e arquivos, em um ambiente isolado e portátil. Isso garante que a aplicação funcione de maneira consistente em diferentes ambientes, desde o desenvolvimento local até a produção em nuvem, simplificando a orquestração de arquiteturas baseadas em microsserviços~\cite{docker2024}.
+
+\subsection{Aplicações Sociais e Sensíveis}
+
+Nos últimos anos, os \textit{chatbots} têm sido empregados em contextos mais delicados, como suporte emocional, saúde mental, acolhimento de vítimas de violência e mediação de conflitos. Nesses casos, a comunicação precisa ser cuidadosamente projetada para transmitir empatia, segurança e confiabilidade~\cite{bibault2019chatbot}.
+
+O uso de \textit{chatbots} em ambientes sensíveis exige cuidados técnicos e éticos adicionais: é necessário garantir a proteção dos dados dos usuários, o anonimato, quando possível, a transparência das respostas e a limitação do escopo do atendimento. Esses fatores são essenciais para evitar o agravamento de situações de vulnerabilidade e criar um ambiente de acolhimento seguro.
+
+Iniciativas como o \textit{chatbot} Aurora (Brasil), criado para informar mulheres em situação de violência, ou o Woebot (EUA), focado em apoio psicológico, demonstram o potencial dessas ferramentas na promoção da saúde, segurança e cidadania digital~\cite{aurora2021,woebot2017}.
+
+\section{INTELIGÊNCIA ARTIFICIAL E PROCESSAMENTO DE LINGUAGEM NATURAL}
+
+\subsection{Fundamentos de Inteligência Artificial aplicados a diálogo}
+
+Inteligência Artificial é um campo da ciência da computação voltado ao desenvolvimento de sistemas capazes de simular comportamentos inteligentes, como raciocínio, aprendizado e tomada de decisões. Quando aplicada ao contexto de diálogos com humanos, a IA é responsável por interpretar intenções, compreender a linguagem natural e gerar respostas coerentes~\cite{russell2010artificial}.
+
+A área de agentes conversacionais tem evoluído a partir de técnicas de aprendizado de máquina supervisionado e não supervisionado, redes neurais artificiais, aprendizado profundo (\textit{deep learning}) e, mais recentemente, modelos de linguagem de larga escala, como o GPT~\cite{brown2020language}. Esses modelos são treinados com grandes volumes de dados textuais e são capazes de prever a próxima palavra ou frase com base no contexto, o que os torna altamente eficientes para tarefas de geração de linguagem e conversação.
+
+\subsection{Processamento de Linguagem Natural (PLN)}
+
+O Processamento de Linguagem Natural é uma subárea da IA voltada ao estudo e desenvolvimento de sistemas que possam compreender, interpretar e gerar a linguagem humana em forma textual ou falada~\cite{jurafsky2021speech}. O PLN é essencial para o funcionamento de \textit{chatbots}, pois permite a análise de mensagens do usuário, a identificação de intenções, a extração de entidades e a formulação de respostas.
+
+Dentre as tarefas clássicas do PLN, destacam-se: análise morfossintática, reconhecimento de entidades nomeadas, análise de sentimentos, tradução automática e geração de texto. Em sistemas conversacionais, essas tarefas são aplicadas em tempo real para possibilitar interações dinâmicas e contextualizadas.
+
+Diversos \textit{frameworks} e bibliotecas têm contribuído para a popularização do PLN, como spaCy, NLTK, \textit{Transformers} da \textit{Hugging Face}, além das APIs disponibilizadas por grandes provedores de nuvem (\textit{Google Cloud, Amazon Web Services, Azure }) para análise semântica, classificação de texto e detecção de intenção.
+
+\subsection{Desafios e cuidados no uso de IA em contextos sensíveis}
+
+Apesar de seu potencial, o uso de IA em contextos sensíveis — como o atendimento a vítimas de violência — exige uma abordagem responsável e cuidadosa. Modelos de linguagem podem reproduzir vieses presentes nos dados de treinamento, gerar respostas inadequadas ou mesmo induzir conclusões erradas~\cite{bender2021dangers}. 
+
+Além disso, a interpretação emocional de mensagens (como sinais de angústia, medo ou hesitação) ainda é um desafio para a IA, e muitas vezes requer intervenção humana em sistemas híbridos. A transparência dos algoritmos, a supervisão humana, o controle de escopo e o respeito à privacidade do usuário são princípios fundamentais para a aplicação ética da IA nesses cenários~\cite{jobin2019aiethics}.
+
+Por isso, o desenvolvimento de soluções como o \textit{chatbot} proposto neste trabalho deve considerar não apenas os avanços tecnológicos, mas também diretrizes éticas, jurídicas e sociais que assegurem o bem-estar e a proteção dos usuários em situação de vulnerabilidade.
+
+\section{PRIVACIDADE, SEGURANÇA E ÉTICA NO ATENDIMENTO DIGITAL}
+
+\subsection{Privacidade de Dados e Anonimato}
+
+O atendimento a vítimas de violência exige o cumprimento de princípios fundamentais de privacidade e proteção de dados. Em muitos casos, a exposição da identidade da vítima pode representar risco real à sua integridade física e emocional. Por isso, qualquer sistema de atendimento automatizado deve garantir mecanismos de anonimato, controle de consentimento e proteção contra rastreamento digital~\cite{lgpd2018}.
+
+No Brasil, a Lei Geral de Proteção de Dados (LGPD\nomenclature{LGPD}{Lei Geral de Proteção de Dados}) estabelece regras claras sobre o tratamento de dados pessoais, exigindo base legal para coleta, armazenamento e compartilhamento de informações sensíveis. A aplicação dessas diretrizes é especialmente crítica em sistemas que interagem com populações vulneráveis, como mulheres em situação de violência.
+
+\subsection{Segurança da informação em sistemas sensíveis}
+
+A segurança da informação envolve a proteção de dados contra acessos não autorizados, perdas, vazamentos e manipulações. No caso de um \textit{chatbot} voltado ao atendimento de vítimas, falhas de segurança podem comprometer a confiança no sistema e colocar em risco a vida das usuárias. 
+
+A adoção de protocolos de criptografia, autenticação segura, controle de acesso e auditoria de \textit{logs} é essencial para minimizar riscos técnicos. Além disso, é importante considerar o uso de infraestrutura de hospedagem segura, bem como testes regulares de segurança para identificação de 2vulnerabilidades~\cite{anderson2020security}.
+
+\subsection{Questões éticas e limitações do atendimento automatizado}
+
+O uso de inteligência artificial em contextos sensíveis levanta diversas questões éticas. Dentre elas, destacam-se a transparência do sistema, o risco de respostas inadequadas, a ausência de empatia humana e a dificuldade em identificar situações de emergência ou perigo iminente~\cite{burr2020ethical}.
+
+Embora os \textit{chatbots} possam funcionar como ferramentas de acolhimento inicial, não devem substituir o atendimento humano qualificado, sobretudo em casos graves ou com complexidade emocional. É necessário que o sistema seja capaz de reconhecer seus próprios limites e redirecionar a usuária, quando necessário, a canais de atendimento humano, como delegacias especializadas ou centros de apoio psicológico~\cite{jobin2019aiethics}.
+
+A incorporação de princípios éticos desde a concepção do sistema — conhecida como \textit{ethics by design} — é uma estratégia recomendada para mitigar impactos negativos e promover o uso responsável da tecnologia.
+
+\section{SOLUÇÕES EXISTENTES E LACUNAS ATUAIS}
+
+\subsection{Aplicativos, \textit{chatbots} e canais de denúncia já disponíveis}
+
+Nos últimos anos, diversos recursos digitais foram desenvolvidos para auxiliar mulheres em situação de violência. Dentre eles, destacam-se aplicativos como o PenhaS, desenvolvido pelo Instituto AzMina, que conecta vítimas a serviços de apoio, e o aplicativo Maria da Penha Virtual, iniciativa do Tribunal de Justiça do Rio de Janeiro, que permite o pedido de medida protetiva por meio de uma plataforma digital~\cite{azmina2024,tjrj2021}.
+
+Além dessas iniciativas, observa-se um esforço governamental em âmbito estadual para criar canais digitais de apoio. O governo do Rio de Janeiro, por exemplo, lançou o aplicativo Rede Mulher, que centraliza serviços de atendimento~\cite{appRedeMulherRJ}. Em São Paulo, o aplicativo SP Mulher oferece um botão de pânico e acesso rápido a delegacias~\cite{appSpMulherSP}. No Paraná, foi implementado o Botão do Pânico virtual~\cite{appBotaoPanicoPR}, e em Minas Gerais, o programa MG Mulher integra diversas ações de proteção~\cite{appMgMulherMG}. Paralelamente, soluções da sociedade civil como o SOS Maria da Penha buscam oferecer agilidade no acionamento de ajuda~\cite{appSosMariaDaPenha}.
+
+Tais soluções representam avanços importantes na democratização do acesso à informação, sobretudo para mulheres em situação de vulnerabilidade social ou isolamento.
+
+\subsection{Limitações tecnológicas e sociais observadas}
+
+Apesar das iniciativas, há desafios significativos quanto à eficácia, acessibilidade e segurança desses sistemas. Muitos aplicativos têm alcance limitado, seja por barreiras tecnológicas (falta de internet, baixa familiaridade com interfaces digitais) ou institucionais (integração insuficiente com redes de apoio e órgãos públicos). Além disso, nem todos os sistemas garantem confidencialidade ou oferecem respostas realmente úteis em momentos críticos~\cite{caldeira2024}.
+
+Outro ponto crítico está relacionado à personalização e empatia do atendimento. Usuárias podem sentir-se frustradas ou não acolhidas por sistemas genéricos, que não interpretam adequadamente situações complexas. Em especial no caso de vítimas de violência, a percepção de acolhimento e a clareza das orientações são determinantes para a continuidade do uso do serviço~\cite{jobin2019aiethics}.
+
+\subsection{Oportunidades para inovação e acolhimento digital}
+
+Diante dessas limitações, surge a necessidade de soluções que integrem tecnologias de linguagem natural, inteligência artificial e princípios éticos desde a concepção. Um \textit{chatbot} capaz de dialogar de forma sensível, oferecer informações contextualizadas e conduzir a usuária de forma segura a canais de ajuda pode ser um recurso complementar valioso.
+
+Além disso, há oportunidades na integração com bancos de dados públicos e sistemas de denúncia automatizada, bem como na adaptação cultural e linguística das interfaces, de modo a atender à diversidade das usuárias. A construção de ferramentas tecnológicas sensíveis às especificidades da violência de gênero pode contribuir significativamente para o enfrentamento desse problema social.

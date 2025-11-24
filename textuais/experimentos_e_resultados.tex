@@ -1,0 +1,154 @@
+%% Capítulo 6: Experimentos e Resultadps
+%%
+
+\mychapter{RESULTADOS}\label{Cap:ExperimentosResultados}
+
+
+\section{RESULTADOS FUNCIONAIS}
+
+Nesta seção são apresentados os resultados funcionais do chatbot, demonstrando a validação prática dos objetivos específicos delineados. Os testes validaram que o sistema é capaz de interagir de forma multimodal no Telegram, oferecendo acolhimento e conduzindo o registro da ocorrência de forma eficaz. Adicionalmente, foi comprovado o funcionamento de fluxos diferenciais, projetados para fortalecer o vínculo com a usuária.
+
+\subsection{Fluxo de Interação com a Usuária}
+
+O contato inicial da usuária com o chatbot se dá por meio de mensagens de acolhimento e da apresentação das opções de ajuda. As Figuras~\ref{fig:saber1} e~\ref{fig:saber2} demonstram este fluxo, no qual o sistema oferece orientações e informações complementares.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/saber_mais.jpeg}
+        \caption{Mensagem inicial de acolhimento.}\label{fig:saber1}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/saber_mais2.jpeg}
+        \caption{Fluxo informativo.}\label{fig:saber2}
+    \end{minipage}
+\end{figure}
+
+\subsection{Registro Multimodal da Ocorrência}
+
+Um dos objetivos específicos do sistema foi possibilitar diferentes formas de relato, garantindo acessibilidade e flexibilidade. Os resultados mostraram que esse objetivo foi plenamente atendido.
+
+A usuária pode relatar um evento tanto por meio de áudio, que é automaticamente transcrito pelo sistema (Figura~\ref{fig:audio}), quanto por texto livre (Figura~\ref{fig:texto}). Adicionalmente, é possível anexar a localização geográfica (Figura~\ref{fig:localizacao}) e imagens (Figura~\ref{fig:imagem}) para enriquecer o registro.
+
+
+\begin{figure}[H]
+    \centering
+
+    \begin{minipage}[t][6.5cm][t]{0.48\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/audio_transcricao.jpeg}
+        \caption{Registro via áudio com transcrição.}\label{fig:audio}
+    \end{minipage}\hfill
+    \begin{minipage}[t][6.5cm][t]{0.48\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/fluxo_texto.jpeg}
+        \caption{Registro via mensagem de texto.}\label{fig:texto}
+    \end{minipage}
+\end{figure}
+
+% --- A "BARREIRA MÁGICA" AQUI ---
+\FloatBarrier%
+
+% --- SEGUNDO BLOCO DE IMAGENS ---
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t][6.5cm][t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/fluxo_localizacao.jpeg}
+        \caption{Compartilhamento de localização.}\label{fig:localizacao}
+    \end{minipage}\hfill
+    \begin{minipage}[t][6.5cm][t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/CAP4/fluxo_imagem.jpeg}
+        \caption{Envio de imagem anexa.}\label{fig:imagem}
+    \end{minipage}
+\end{figure}
+
+
+Ao final, o sistema consolida as informações coletadas e confirma a conclusão do registro, como ilustrado na Figura~\ref{fig:concluir}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figuras/CAP4/fluxo_concluir.jpeg}
+    \caption{Etapa de conclusão do registro da ocorrência.}\label{fig:concluir}
+\end{figure}
+
+\subsection{Fluxos Diferenciais}
+
+Outro objetivo específico foi oferecer alternativas de interação usando palavras-chave que, embora não estejam diretamente ligadas ao registro de violência, contribuem para manter em situações de emergência de forma discreta. Esses fluxos diferenciais são ativados quando a usuária utiliza determinadas palavras-chave, como ``pizza'' ou ``açaí'', simulando um pedido o que ajuda a manter a discrição e o sigilo.
+
+As Figuras~\ref{fig:diferencial1},\ref{fig:diferencial2} e\ref{fig:diferencial3} mostram o exemplo de um desses fluxos em operação.
+
+\begin{figure}[H]
+    \centering
+    % --- Imagem da Esquerda ---
+    \subfloat[Início do fluxo com palavra-chave.]{
+        \includegraphics[width=0.30\textwidth]{figuras/CAP4/fluxo_diferencial.jpeg}\label{fig:diferencial1}
+    }
+    \hfill % Adiciona um espaço flexível entre as imagens
+    % --- Imagem do Meio ---
+    \subfloat[Continuidade da interação.]{
+        \includegraphics[width=0.30\textwidth]{figuras/CAP4/fluxo_diferencial2.jpeg}\label{fig:diferencial2}
+    }
+    \hfill % Adiciona um espaço flexível entre as imagens
+    % --- Imagem da Direita ---
+    \subfloat[Conclusão e registro.]{
+        \includegraphics[width=0.30\textwidth]{figuras/CAP4/fluxo_diferencial3.jpeg}\label{fig:diferencial3}
+    }
+    
+    % --- Legenda e Rótulo Principais ---
+    \caption{Exemplo de um fluxo de interação diferencial, ativado por palavra-chave, mostrando o início, a continuidade e a conclusão do registro de emergência.}\label{fig:fluxo_diferencial_completo}
+\end{figure}
+
+\subsection{Síntese dos Resultados}
+
+Com base nos testes realizados, observa-se que todos os objetivos específicos foram atendidos. O \textit{chatbot} demonstrou capacidade de acolher e orientar a usuária no início da interação. Além disso, o sistema permitiu múltiplas modalidades de registro da ocorrência (texto, áudio, imagem e localização) e conseguiu estruturar e concluir o registro através da \textit{API} dos agentes \textit{LLM}, confirmando a operação. Por fim, foram validados os fluxos diferenciais, projetados para situações de emergência que exigem discrição.
+
+Dessa forma, o sistema demonstrou-se funcional e aderente às metas estabelecidas, comprovando a viabilidade da proposta.
+
+\section{\textit{DASHBOARDS} E MONITORAMENTO}
+
+Além da interação direta pelo \textit{chatbot}, um dos resultados funcionais do projeto é o \textit{dashboard} de monitoramento, que permite o acompanhamento estruturado das informações coletadas. Essas visualizações fornecem suporte à tomada de decisão e facilitam a análise estatística das ocorrências registradas.
+
+A interface principal, apresentada na Figura\ref{fig:dash-mapa}, foca na Localização e Detalhes das Ocorrências. Ela apresenta um mapa interativo que exibe a distribuição geográfica dos relatos e uma tabela com as ocorrências mais recentes. No painel lateral, é possível aplicar filtros dinâmicos por data, tipo de crime, nome da vítima ou palavras-chave.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/CAP6/cap601.png}
+    \caption{Tela principal do Dashboard \- Análise geoespacial e listagem de ocorrências.}
+    \footnotesize{Fonte: Produção da Autora.}\label{fig:dash-mapa}
+\end{figure}
+
+Ao rolar a página, a usuária acessa a Análise dos Dados Filtrados (Figura~\ref{fig:dash-analise}). Esta seção apresenta métricas agregadas, como o total de ocorrências, um gráfico de linha que demonstra a variação de registros ao longo dos meses, e um gráfico de barras com os tipos de crime mais frequentes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/CAP6/cap602.png}
+    \caption{Dashboard \- Análise estatística e temporal.}
+    \footnotesize{Fonte: Produção da Autora.}\label{fig:dash-analise}
+\end{figure}
+
+Finalmente, a Figura~\ref{fig:dash-padroes} exibe a seção de Padrões Temporais e Relações entre Tipos de Violência. O gráfico de barras à esquerda revela a distribuição das ocorrências por dia da seman. À direita, um \textit{heatmap} de coocorrência espelhada demonstra a relação entre os tipos de violência, mostrando, por exemplo, que diferentes tipos de violência são relatados conjuntamente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/CAP6/cap603.png}
+    \caption{Dashboard \- Análise de padrões por dia da semana e coocorrência de crimes.}
+    \footnotesize{Fonte: Produção da Autora.}\label{fig:dash-padroes}
+\end{figure}
+
+\section{LIMITAÇÕES E DIFICULDADES}
+
+Durante a validação prática, algumas dificuldades foram observadas. A transcrição de áudio em ambientes com ruído, utilizando a versão de teste da \textit{API} Google Speech-to-Text, apresentou limitações na acurácia da transcrição quando os áudios continham interferências externas. De forma similar, o reconhecimento de texto em imagens de baixa qualidade mostrou dificuldades, com a aplicação de \textit{OCR (Optical Character Recognition)} falhando em identificar corretamente informações em fotos desfocadas ou com pouca iluminação. Finalmente, o agente de extração de dados conseguiu identificar corretamente os tipos de violência em X% dos casos de teste simulados (valor a ser atualizado após fechamento dos experimentos).
+
+Apesar dessas limitações, os resultados demonstram que o sistema é funcional e cumpre o papel de apoiar o registro inicial das ocorrências, além de oferecer uma interação acessível e multimodal.
+
+\section{VALIDAÇÃO DOS OBJETIVOS ESPECÍFICOS}
+
+A validação dos objetivos específicos foi realizada por meio da verificação prática das funcionalidades implementadas. O primeiro objetivo, referente ao desenvolvimento do \textit{chatbot}, foi atingido com a implementação operacional do sistema no \textit{Telegram}, permitindo registros multimodais (texto, áudio, imagem e localização) e assegurando uma comunicação direta e privada.
+
+O segundo objetivo foi cumprido com a integração bem-sucedida da API de PLN baseada em LLM, que demonstrou capacidade para interpretar os relatos e classificar as ocorrências conforme os tipos de violência previstos.
+
+Por fim, o terceiro objetivo foi validado pela estruturação dos dados em um banco relacional e sua posterior apresentação em \textit{dashboards} analíticos, que possibilitam a visualização de métricas e oferecem suporte à tomada de decisão por parte das instituições competentes.

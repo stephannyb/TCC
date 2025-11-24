@@ -1,0 +1,83 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {chapter}{Sumário}{i}{section*.3}%
+\contentsline {chapter}{Lista de Figuras}{iii}{chapter*.4}%
+\contentsline {chapter}{Lista de Siglas}{v}{section*.6}%
+\contentsline {chapter}{\numberline {1}INTRODUÇÃO}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}MOTIVAÇÃO}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}OBJETIVOS}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Objetivos Específicos}{3}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}ESTRUTURA DO TRABALHO}{4}{section.1.3}%
+\contentsline {chapter}{\numberline {2}FUNDAMENTAÇÃO TEÓRICA}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}VIOLÊNCIA CONTRA A MULHER: ASPECTOS CONCEITUAIS E ESTATÍSTICOS}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definições e Tipos de Violência}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Panorama da Violência contra a Mulher no Brasil e no Rio Grande do Norte}{6}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}\textit {CHATBOTS} E ASSISTENTES VIRTUAIS}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Conceito e Evolução dos \textit {Chatbots}}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Arquitetura}{7}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Tecnologias Aplicadas}{7}{subsection.2.2.3}%
+\contentsline {subsubsection}{\textit {Node.js}}{7}{section*.11}%
+\contentsline {subsubsection}{\textit {PostgreSQL}}{8}{section*.12}%
+\contentsline {subsubsection}{\textit {Docker}}{8}{section*.13}%
+\contentsline {subsection}{\numberline {2.2.4}Aplicações Sociais e Sensíveis}{8}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}INTELIGÊNCIA ARTIFICIAL E PROCESSAMENTO DE LINGUAGEM NATURAL}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Fundamentos de Inteligência Artificial aplicados a diálogo}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Processamento de Linguagem Natural (PLN)}{9}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Desafios e cuidados no uso de IA em contextos sensíveis}{9}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}PRIVACIDADE, SEGURANÇA E ÉTICA NO ATENDIMENTO DIGITAL}{10}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Privacidade de Dados e Anonimato}{10}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Segurança da informação em sistemas sensíveis}{10}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Questões éticas e limitações do atendimento automatizado}{10}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}SOLUÇÕES EXISTENTES E LACUNAS ATUAIS}{11}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Aplicativos, \textit {chatbots} e canais de denúncia já disponíveis}{11}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Limitações tecnológicas e sociais observadas}{11}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Oportunidades para inovação e acolhimento digital}{12}{subsection.2.5.3}%
+\contentsline {chapter}{\numberline {3}TRABALHOS RELACIONADOS}{13}{chapter.3}%
+\contentsline {chapter}{\numberline {4}PROBLEMA}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}CONTEXTUALIZAÇÃO DO PROBLEMA}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}LIMITAÇÕES DAS SOLUÇÕES EXISTENTES}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}FORMULAÇÃO DO PROBLEMA DE PESQUISA}{15}{section.4.3}%
+\contentsline {section}{\numberline {4.4}HIPÓTESE}{16}{section.4.4}%
+\contentsline {chapter}{\numberline {5}IMPLEMENTAÇÃO}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}VISÃO GERAL DO DESENVOLVIMENTO}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}ARQUITETURA E ORGANIZAÇÃO DO PROJETO}{17}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Comunicação via API REST}{19}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Justificativa do Uso de Microsserviços com \textit {Docker}}{20}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Estrutura dos Dados da API}{21}{subsection.5.2.3}%
+\contentsline {subsubsection}{Resposta HTTP Padrão}{21}{section*.15}%
+\contentsline {subsubsection}{Estrutura do JSON da Ocorrência}{21}{section*.16}%
+\contentsline {subsubsection}{Exemplo de Estrutura}{22}{section*.17}%
+\contentsline {subsubsection}{Estrutura Detalhada dos Objetos}{23}{section*.18}%
+\contentsline {section}{\numberline {5.3}SERVIÇOS E INFRAESTRUTURA}{23}{section.5.3}%
+\contentsline {section}{\numberline {5.4}FERRAMENTAS E TECNOLOGIAS}{23}{section.5.4}%
+\contentsline {section}{\numberline {5.5}IMPLEMENTAÇÃO E MÓDULOS}{24}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Módulo de PLN (API)}{24}{subsection.5.5.1}%
+\contentsline {subsubsection}{Modelo Base}{24}{section*.19}%
+\contentsline {subsubsection}{Agente de Extração Genérica de Dados}{24}{section*.20}%
+\contentsline {subsubsection}{Agente Escrivão (\textit {ScrivenerAgent})}{25}{section*.21}%
+\contentsline {subsubsection}{Agente Especializado em Violência Contra a Mulher}{25}{section*.22}%
+\contentsline {subsubsection}{Integração dos Agentes}{26}{section*.23}%
+\contentsline {subsection}{\numberline {5.5.2}Módulo de Integração com o \textit {Telegram} (\textit {BOT})}{27}{subsection.5.5.2}%
+\contentsline {subsubsection}{Funcionalidades de Entrada}{28}{section*.25}%
+\contentsline {subsubsection}{Fluxo de Conversa e Interação}{28}{section*.26}%
+\contentsline {subsubsection}{Integração com os Agentes}{29}{section*.27}%
+\contentsline {subsubsection}{Recursos de Persistência}{29}{section*.28}%
+\contentsline {subsubsection}{Diferenciais de Projeto}{29}{section*.29}%
+\contentsline {subsection}{\numberline {5.5.3}Módulo de Banco de Dados}{30}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Módulo de Dashboard}{30}{subsection.5.5.4}%
+\contentsline {section}{\numberline {5.6}INTEGRAÇÃO E TESTES}{31}{section.5.6}%
+\contentsline {chapter}{\numberline {6}RESULTADOS}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}RESULTADOS FUNCIONAIS}{33}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Fluxo de Interação com a Usuária}{33}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Registro Multimodal da Ocorrência}{34}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Fluxos Diferenciais}{37}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Síntese dos Resultados}{38}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}\textit {DASHBOARDS} E MONITORAMENTO}{38}{section.6.2}%
+\contentsline {section}{\numberline {6.3}LIMITAÇÕES E DIFICULDADES}{41}{section.6.3}%
+\contentsline {section}{\numberline {6.4}VALIDAÇÃO DOS OBJETIVOS ESPECÍFICOS}{41}{section.6.4}%
+\contentsline {chapter}{\numberline {7}CONCLUSÃO}{43}{chapter.7}%
+\contentsline {section}{\numberline {7.1}RESPOSTA AO PROBLEMA DE PESQUISA}{43}{section.7.1}%
+\contentsline {section}{\numberline {7.2}CONTRIBUIÇÕES}{43}{section.7.2}%
+\contentsline {section}{\numberline {7.3}LIMITAÇÕES}{44}{section.7.3}%
+\contentsline {section}{\numberline {7.4}TRABALHOS FUTUROS}{44}{section.7.4}%
+\contentsline {section}{\numberline {7.5}CONSIDERAÇÕES FINAIS}{44}{section.7.5}%
+\contentsline {chapter}{Referências bibliográficas}{45}{section*.39}%

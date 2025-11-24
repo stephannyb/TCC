@@ -1,0 +1,399 @@
+%%
+%% Capítulo 5: Implementacao
+%%
+
+\mychapter{IMPLEMENTAÇÃO}\label{Cap:Implementacao}
+
+\section{VISÃO GERAL DO DESENVOLVIMENTO}
+O desenvolvimento do \textbf{MarIA \- Um Chatbot Inteligente para Atendimento de Vítimas de Violência contra a Mulher} foi realizado de forma iterativa e flexível, com características de prototipação experimental. Essa abordagem permitiu construir, testar e aprimorar rapidamente componentes do sistema antes de sua consolidação final.  
+
+O projeto foi implementado como um conjunto de serviços integrados, orquestrados via \textit{Docker Compose}, incluindo um \textit{bot} para interação com o usuário, agentes LLM para processamento de linguagem natural, um banco de dados relacional e um \textit{dashboard} para visualização de dados e métricas. 
+
+Um \textit{dashboard} (ou painel de controle) é uma ferramenta de visualização de dados que exibe, de forma centralizada e gráfica, métricas e Indicadores-Chave de Desempenho. Seu objetivo é permitir o monitoramento e a análise de informações complexas de maneira rápida e intuitiva, facilitando a tomada de decisões~\cite{few2013dashboard}.  
+Além disso, foi incorporada inspiração em iniciativas já existentes, como o aplicativo SalveElas, do Rio Grande do Norte, que atua na proteção de mulheres em situação de vulnerabilidade.
+
+\section{ARQUITETURA E ORGANIZAÇÃO DO PROJETO}
+
+O repositório do projeto está disponível publicamente em:  
+\url{https://github.com/stephannyb/MarIA}  
+
+O projeto foi estruturado com base em uma arquitetura de microsserviços, organizada em diferentes módulos encapsulados e orquestrados por meio do \textit{Docker Compose}.\@ Cada serviço é executado em seu próprio contêiner, garantindo isolamento, independência e facilidade de manutenção. Essa escolha possibilita que cada componente possa ser atualizado, substituído ou escalado de forma independente, promovendo maior flexibilidade na evolução do sistema.
+
+A arquitetura é composta por cinco serviços principais: o Bot, responsável pela interface com o usuário via Telegram, recebendo mensagens, estruturando requisições e encaminhando os dados para a API;\@ a API (Agentes), que implementa a lógica de processamento das ocorrências, utilizando agentes especializados em extrair informações estruturadas; o Banco de Dados (PostgreSQL), que armazena de forma segura as ocorrências processadas; o Dashboard, desenvolvido em Python com Streamlit para visualização de dados; e o PgAdmin, ferramenta de administração do banco de dados, utilizada para consultas e manutenção.
+
+A comunicação entre esses serviços ocorre principalmente via API REST, com o uso de requisições HTTP e troca de dados em formato JSON.\@
+
+A comunicação entre os serviços é fundamentada em padrões consolidados da web. O estilo arquitetural \textit{REST\nomenclature{REST}{Representational State Transfer}} (\emph{Representational State Transfer}) define um conjunto de restrições para a criação de serviços web interoperáveis. Uma de suas principais características é a comunicação sem estado (\emph{stateless}), onde cada requisição do cliente para o servidor deve conter toda a informação necessária para ser compreendida e processada.
+
+Essas requisições são realizadas utilizando o protocolo \textit{HTTP\nomenclature{HTTP}{Hypertext Transfer Protocol}} (\emph{Hypertext Transfer Protocol}), que define métodos para indicar a ação desejada a ser executada em um recurso. O método \textit{POST}, utilizado neste projeto para o registro de ocorrências, é empregado para submeter dados a um recurso específico, frequentemente resultando na criação de uma nova entidade no servidor. Por fim, os dados trocados entre os serviços são estruturados no formato \textit{JSON\nomenclature{JSON}{JavaScript Object Notation}} (\emph{JavaScript Object Notation}), um padrão textual leve e de fácil leitura tanto para humanos quanto para máquinas, ideal para a serialização e transmissão de dados em APIs.~\cite{fielding2000rest}
+
+
+Essa padronização garante interoperabilidade e facilita a integração futura com outros sistemas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth]{figuras/CAP3/arquitetura.png}
+    \caption{Arquitetura do sistema MarIA.}
+    \footnotesize{Fonte: Produção da Autora.}\label{fig:arquitetura-maria}
+\end{figure}
+
+\subsection{Comunicação via API REST}
+
+A API expõe dois \textit{endpoints} principais:
+
+\begin{itemize}
+    \item \texttt{/api/maria/ocorrencia/registrar} (método POST): responsável por receber um relato inicial da ocorrência enviado pelo \textit{bot} no \textit{Telegram}. Os dados recebidos incluem informações como texto do relato, possíveis anexos (fotos, localização), além de sinalizações contextuais (como presença de agressor armado ou ocorrência em andamento). O \textit{endpoint} retorna um JSON estruturado contendo os dados extraídos pelo módulo de agentes.
+
+    \item \texttt{/api/maria/ocorrencia/salvar} (método POST): utilizado como redundância no processo de registro. Caso haja falha no armazenamento direto da ocorrência, esse endpoint recebe o JSON previamente gerado e realiza a tentativa de persistência no banco de dados.
+\end{itemize}
+
+O formato da requisição segue o padrão \texttt{application/json}, com parâmetros específicos, como exemplificado abaixo:
+
+\begin{verbatim}
+{
+    "nomeUsuario": "Usuário do Telegram",
+    "textoInformal": "Exemplo de relato...",
+    "fotos": [],
+    "localizacoes": [],
+    "agressorArmado": false,
+    "acontecendoAgora": true
+}
+\end{verbatim}
+
+A resposta segue um modelo padronizado com os campos \texttt{success}, \texttt{message} e \texttt{data}, permitindo identificar facilmente o status da requisição:
+
+\begin{verbatim}
+{
+    "success": true,
+    "message": "Ocorrência registrada com sucesso.",
+    "data": { ... }
+}
+\end{verbatim}
+
+O objeto \texttt{data} contém os dados estruturados da ocorrência, incluindo informações de localização, data e hora, dados da vítima, envolvidos, testemunhas e tipificação do crime (violência física, psicológica, sexual, patrimonial, entre outros).
+
+\subsection{Justificativa do Uso de Microsserviços com \textit{Docker}}
+
+A adoção da arquitetura de microsserviços orquestrada com Docker foi motivada por uma série de vantagens técnicas e operacionais. Entre elas estão o isolamento, pois cada módulo é executado em um contêiner independente, evitando que falhas impactem os demais. Destaca-se também a escalabilidade, permitindo que serviços críticos, como a API, sejam replicados horizontalmente, e a facilidade de manutenção, já que atualizações em um serviço não exigem a reinicialização de toda a aplicação. Adicionalmente, a abordagem garante portabilidade, permitindo a execução consistente em diferentes ambientes, e promove uma integração simplificada pelo uso do Docker Compose para orquestrar os serviços.
+
+Essa abordagem garante que o projeto esteja preparado para evoluir, seja pela adição de novos serviços (como módulos de análise de dados ou integração com serviços governamentais), seja pelo aumento de demanda de usuários.
+
+\subsection{Estrutura dos Dados da API}
+
+Além da definição dos \textit{endpoints}, foi projetada uma estrutura padronizada para troca de informações entre os módulos, utilizando o formato JSON como meio de serialização. Essa padronização garante consistência nas mensagens, facilita o tratamento de erros e possibilita futuras integrações com sistemas externos.
+
+\subsubsection{Resposta HTTP Padrão}
+
+Uma Resposta HTTP Padrão, no contexto de uma API REST, é um modelo de estrutura de dados consistente retornado pelo servidor após o processamento de uma requisição. Adotar um padrão é uma boa prática no desenvolvimento de software, pois torna a comunicação entre o cliente (neste caso, o \textit{bot}) e o servidor mais previsível e robusta. A estrutura geralmente inclui um indicador de sucesso da operação (\textit{booleano}), uma mensagem descritiva para o usuário ou desenvolvedor e, em caso de sucesso, o corpo dos dados solicitados. Essa abordagem simplifica o tratamento de sucessos e erros de forma uniforme em toda a aplicação~\cite{richardson2007restful}.
+
+\begin{verbatim}
+{
+    "success": true,
+    "message": "Ocorrência registrada com sucesso.",
+    "data": { ... }
+}
+\end{verbatim}
+
+\begin{itemize}
+    \item \texttt{success}: indica o status da requisição (booleano).
+    \item \texttt{message}: mensagem de \textit{feedback} sobre a operação.
+    \item \texttt{data}: objeto contendo os dados estruturados da ocorrência, ou \textit{null} em caso de falha.
+\end{itemize}
+
+\subsubsection{Estrutura do JSON da Ocorrência}
+
+O objeto \texttt{data} segue o padrão abaixo:
+
+\begin{itemize}
+    \item \texttt{dados\_localizacao}: informações sobre o local da ocorrência (endereço, município, coordenadas geográficas).
+    \item \texttt{dados\_data\_hora}: datas e horários do registro e do acontecimento.
+    \item \texttt{dados\_vitima}: informações da vítima (nome, idade, contatos).
+    \item \texttt{dados\_testemunhas}: lista de testemunhas com dados básicos de identificação e contato.
+    \item \texttt{dados\_envolvidos}: lista de pessoas envolvidas, incluindo condição (vítima, agressor, etc.).
+    \item \texttt{dados\_crime}: tipificação da violência, incluindo subdivisões (física, moral, psicológica, sexual, patrimonial e feminicídio).
+    \item \texttt{texto\_narrativa}: relato textual da ocorrência.
+    \item \texttt{observacao}: informações adicionais fornecidas.
+\end{itemize}
+
+\subsubsection{Exemplo de Estrutura}
+
+A seguir, um exemplo da organização dos campos:
+
+\begin{verbatim}
+{
+    "dados_localizacao": {
+        "tipo_local": "residência",
+        "nome_municipio": "Natal",
+        "sigla_uf": "RN",
+        "endereco_logradouro": "Rua Exemplo",
+        "endereco_numero": "123",
+        "endereco_bairro": "Centro",
+        "longitude": "-35.2075",
+        "latitude": "-5.7945"
+    },
+    "dados_data_hora": {
+        "data_registro_ocorrencia": "2025-09-01",
+        "horario_registro_ocorrencia": "14:32",
+        "data_acontecimento_ocorrencia": "2025-09-01",
+        "horario_acontecimento_ocorrencia": "13:50"
+    },
+    "dados_vitima": {
+        "nome": "Maria Silva",
+        "idade": "28",
+        "tel_contato": "(84) 99999-0000"
+    },
+    "dados_envolvidos": [
+        {
+            "nome": "João Souza",
+            "condicao_envolvido": "suposto agressor"
+        }
+    ],
+    "dados_crime": {
+        "violencia_fisica": [
+            {
+                "agressao_fisica": true,
+                "dados_data": "2025-09-01",
+                "dados_hora": "13:50"
+            }
+        ],
+        "violencia_psicologica": [
+            {
+                "ameacas": true,
+                "humilhacao": false
+            }
+        ],
+        "feminicidio": null
+    },
+    "texto_narrativa": "Relato textual enviado pela vítima.",
+    "observacao": null
+}
+\end{verbatim}
+
+\subsubsection{Estrutura Detalhada dos Objetos}
+
+A seguir são apresentados os principais objetos que compõem o JSON da ocorrência:
+
+\begin{itemize}
+    \item \textbf{dados\_localizacao}: inclui parâmetros como \texttt{tipo\_local}, \texttt{nome\_municipio}, \texttt{sigla\_uf}, \texttt{longitude} e \texttt{latitude}.
+    \item \textbf{dados\_data\_hora}: registra data e hora do registro e do acontecimento.
+    \item \textbf{dados\_vitima}, \textbf{dados\_testemunhas} e \textbf{dados\_envolvidos}: armazenam informações pessoais (nome, idade, documento de identificação, contatos).
+    \item \textbf{dados\_crime}: subdividido em \texttt{violencia\_fisica}, \texttt{violencia\_moral}, \texttt{violencia\_psicologica}, \texttt{violencia\_sexual}, \texttt{violencia\_patrimonial} e \texttt{feminicidio}, cada qual com indicadores booleanos e registros de data/hora.
+\end{itemize}
+
+Essa modelagem garante que os relatos informais enviados pelas vítimas ao \textit{chatbot} sejam transformados em registros estruturados, com potencial para posterior análise estatística, integração com bancos de dados policiais ou utilização em estudos sobre violência de gênero.
+
+
+\section{SERVIÇOS E INFRAESTRUTURA}
+A aplicação é composta pelos seguintes serviços definidos no \textit{docker-compose.yml}: \textit{Bot}, implementado em \textit{JavaScript} para gerenciar a interface de conversação; Agentes, também em \textit{JavaScript}, que processam requisições assíncronas de linguagem natural; \textit{PostgreSQL} (db), utilizado como banco de dados relacional para armazenamento; \textit{PgAdmin}, como ferramenta para administração do banco de dados; e o \textit{Dashboard}, desenvolvido em \textit{Streamlit (Python)} para análise e visualização dos dados coletados.
+
+\section{FERRAMENTAS E TECNOLOGIAS}
+
+O desenvolvimento utilizou as seguintes tecnologias: \textit{JavaScript}, usado para o \textit{bot} e para os agentes \textit{LLM}, pela eficiência no tratamento de requisições assíncronas; \textit{Python} em conjunto com \textit{Streamlit}, utilizados no \textit{dashboard} pela simplicidade de prototipação e integração com bibliotecas de visualização; \textit{PostgreSQL}, como banco de dados relacional para armazenamento estruturado; e \textit{Docker Compose}, para a orquestração de múltiplos serviços de forma integrada.
+
+\section{IMPLEMENTAÇÃO E MÓDULOS}
+
+A implementação do sistema foi estruturada em módulos independentes, de forma a favorecer a organização do código, a escalabilidade e a clareza na manutenção. Cada módulo desempenha um papel específico na arquitetura geral do \textit{chatbot}, contribuindo para o funcionamento integrado da solução. A seguir, são apresentados os principais módulos desenvolvidos.
+
+\subsection{Módulo de PLN (API)}
+
+O módulo de Processamento de Linguagem Natural constitui o núcleo do sistema, sendo responsável pela interpretação e transformação dos relatos recebidos. Ele foi desenvolvido utilizando a biblioteca \textit{LangChain} em conjunto com o modelo \texttt{GPT}, fornecido pela API da organização \textit{OpenAI}.
+
+A estrutura desse módulo parte de um arquivo base denominado \texttt{baseLLM.js}, no qual é configurada a instância central do modelo de linguagem. Essa instância serve de fundação para os demais agentes especializados. O código é o seguinte:
+
+\subsubsection{Modelo Base}
+O arquivo \texttt{baseLLM.js} define a configuração comum a todos os agentes, incluindo o modelo a ser utilizado, a chave de autenticação e parâmetros como a \textit{temperature}, que foi fixada em zero para garantir respostas determinísticas e consistentes:
+
+\begin{verbatim}
+import { ChatOpenAI } from "@langchain/openai";
+
+export const chatGPTModel = new ChatOpenAI({
+    model: process.env.OPENAI_MODEL,
+    apiKey: process.env.OPENAI_API_KEY,
+    temperature: 0,
+});
+\end{verbatim}
+
+\subsubsection{Agente de Extração Genérica de Dados}
+O agente genérico (\texttt{genericDataAgent}) tem como objetivo extrair informações estruturadas a partir do relato fornecido pela vítima, incluindo dados da vítima, do suposto agressor, testemunhas, local, data, hora e crimes cometidos. 
+
+O esquema de saída foi definido com \textit{Zod}, uma biblioteca de declaração e validação de esquemas para \textit{TypeScript} e \textit{JavaScript}. Sua principal finalidade é garantir a integridade e a segurança de tipos de dados em tempo de execução. Com o \textit{Zod}, é possível definir uma estrutura rigorosa (um \emph{schema}) para um objeto de dados, como um JSON, e validar se os dados recebidos estão em conformidade com essa estrutura. Caso contrário, a biblioteca impede que dados malformados ou inesperados sejam processados pela aplicação, tornando o sistema mais previsível e menos suscetível a erros~\cite{colinh2024zod}. No contexto deste trabalho, o Zod foi utilizado para assegurar que a resposta da API do LLM seguisse estritamente o formato JSON esperado.
+
+Um exemplo representativo do \textit{prompt} utilizado está associado à detecção de crimes:
+
+\begin{verbatim}
+Extraia os tipos de violência mencionados na ocorrência. 
+Retorne apenas os nomes das violências listadas abaixo, 
+sem adicionar parênteses ou palavras extras:
+
+- Violencia Fisica
+- Violencia Moral
+- Violencia Psicologica
+- Violencia Sexual
+- Violencia Patrimonial
+- Feminicidio
+
+Exemplo:
+Entrada: "Meu companheiro me empurrou e rasgou meus documentos."
+Saída esperada: ["Violencia Fisica", "Violencia Patrimonial"]
+\end{verbatim}
+
+Esse agente é responsável por fornecer a base de dados estruturados que alimenta os demais módulos do sistema.
+
+\subsubsection{Agente Escrivão  (\textit{ScrivenerAgent})}
+O segundo agente desenvolvido, denominado \texttt{scrivenerAgent}, atua como um escrivão da Polícia Civil. Seu objetivo é reescrever o relato em norma culta da língua portuguesa, corrigindo erros gramaticais, ortográficos e regionais, sem alterar o sentido do texto. Isso assegura que a narrativa registrada seja compatível com documentos oficiais.
+
+\begin{verbatim}
+Você é um escrivão profissional da Polícia Civil. Você tem o papel de
+ler textos e corrigi-los para a norma culta da língua portuguesa,
+sem fazer alterações no sentido da história.
+\end{verbatim}
+
+\subsubsection{Agente Especializado em Violência Contra a Mulher}
+O terceiro agente, denominado \texttt{specializedAgent}, é especializado na análise de ocorrências de violência contra a mulher. Ele classifica os diferentes tipos de violência previstos na legislação brasileira (física, moral, psicológica, sexual, patrimonial e feminicídio), preenchendo um esquema estruturado de saída.
+
+O \textit{prompt} que orienta o agente é o seguinte:
+
+\begin{verbatim}
+Você é um perito analista de textos profissional da Polícia Civil.
+Você é especializado na extração de dados de ocorrências de violência
+contra a mulher. Sua função é identificar quais os tipos de violência
+contra a mulher relatados e verificar se houve ou não um feminicídio.
+Você deve relatar os tipos de violência ocorridos e caso não haja
+dados referentes a algum deles, retorne null.
+\end{verbatim}
+
+Esse módulo representa o ponto central de especialização do sistema, pois permite que o \textit{chatbot} identifique automaticamente as dimensões da violência reportada, gerando um retrato fiel e estruturado da ocorrência.
+
+\subsubsection{Integração dos Agentes}
+O fluxo de processamento segue três etapas principais:
+\begin{enumerate}
+    \item O \texttt{scrivenerAgent} corrige o relato da vítima para a norma culta;
+    \item O \texttt{genericDataAgent} extrai dados estruturados gerais (vítima, suposto agressor, testemunhas, local, data, hora e crimes);
+    \item O \texttt{specializedAgent} analisa especificamente os tipos de violência contra a mulher.
+\end{enumerate}
+
+A combinação desses agentes garante que o sistema seja capaz de transformar um relato em linguagem natural em uma representação estruturada e formalizada, apta para integrar sistemas de apoio às forças de segurança e serviços de acolhimento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/CAP3/fluxo_agentes.png}
+    \caption{Fluxograma de processamento de um relato pelos agentes de PLN.}
+\footnotesize{Fonte: Produção da Autora.}\label{fig:fluxograma-agentes}
+\end{figure}
+
+\subsection{Módulo de Integração com o \textit{Telegram} (\textit{BOT})}
+
+O módulo de integração com o \textit{Telegram} constitui a camada de interface entre o usuário e o sistema. Ele foi desenvolvido utilizando a biblioteca \texttt{node-telegram-bot-api}, que permite a criação de robôs de conversa (\textit{chatbots}) de forma simples e escalável. O \textit{bot} opera em modo de \textit{polling}, recebendo e processando mensagens em tempo real.
+
+O arquivo principal do \textit{bot} é responsável por instanciar o objeto \texttt{TelegramBot}, configurar a autenticação com o \textit{token} fornecido pela plataforma e inicializar as rotinas de registro de usuários e processamento de mensagens. Um trecho representativo da configuração inicial é o seguinte:
+
+\begin{verbatim}
+const TelegramBot = require("node-telegram-bot-api");
+const token = process.env.BOT_TOKEN;
+const bot = new TelegramBot(token, { polling: true });
+\end{verbatim}
+
+\subsubsection{Funcionalidades de Entrada}
+
+O \textit{bot} foi projetado para aceitar múltiplas modalidades de entrada, de forma a garantir acessibilidade e flexibilidade ao registro de ocorrências. Entre os recursos disponíveis estão:
+
+\begin{itemize}
+    \item \textbf{Texto}: entrada textual tradicional, analisada diretamente pelos agentes de PLN.\@
+    \item \textbf{Áudio}: mensagens de voz enviadas pelo usuário são convertidas de \texttt{.ogg} para \texttt{.wav} utilizando \textit{ffmpeg}, e em seguida transcritas por meio da API do \textit{Google Cloud Speech-to-Text}.
+    \item \textbf{Imagens}: arquivos de imagem podem ser submetidos pelo usuário. Nestes casos, aplica-se Reconhecimento Óptico de Caracter (\textit{Optical Character Recognition} \- OCR\nomenclature{OCR}{Optical Character Recognition}) com a biblioteca \texttt{node-tesseract-ocr}, permitindo recuperar trechos textuais embutidos na mídia.
+    \item \textbf{Localização}: a API do \textit{Telegram} possibilita o envio da localização geográfica diretamente pelo aplicativo, que é armazenada e vinculada ao registro da ocorrência.
+\end{itemize}
+
+\subsubsection{Fluxo de Conversa e Interação}
+
+A interação com a vítima é conduzida por meio de mensagens automáticas e botões de resposta rápida (\texttt{inline\_keyboard}). O fluxo inicial de conversa apresenta saudações e opções de ação:
+
+\begin{verbatim}
+const askWhatToDo = {
+    text: "O que você deseja fazer agora?",
+    options: {
+        reply_markup: {
+            inline_keyboard: [
+                [
+                    { text: "Registrar uma ocorrência", callback_data: "register" },
+                    { text: "Quero saber mais", callback_data: "more_info" }
+                ]
+            ]
+        }
+    }
+};
+\end{verbatim}
+
+Esse recurso simplifica a tomada de decisão do usuário e garante que as informações sejam coletadas de forma organizada.
+
+\subsubsection{Integração com os Agentes}
+
+Ao final do processo de coleta de informações, o \textit{bot} envia os dados para a API que centraliza os agentes de PLN.\@ Esse envio é feito via requisição HTTP com a biblioteca \texttt{axios}:
+
+\begin{verbatim}
+async function callAgents(payload) {
+    return await axios.post(
+        "http://agentes:3000/api/maria/ocorrencia/registrar",
+        payload
+    );
+}
+\end{verbatim}
+
+Com isso, garante-se que os relatos coletados sejam processados, normalizados e classificados automaticamente, possibilitando o registro estruturado das ocorrências.
+
+\subsubsection{Recursos de Persistência}
+
+Para manter o estado da interação com os usuários, o sistema utiliza um banco de dados \textit{PostgreSQL}. Dois esquemas principais foram definidos:
+
+\begin{itemize}
+    \item \textbf{greeted\_users}: armazena o estado de cada usuário em relação ao fluxo de interação (edição em andamento, aguardando mensagem, etc.);
+    \item \textbf{messages}: armazena os relatos e mídias coletados durante as interações.
+\end{itemize}
+
+Essa camada de persistência garante que a experiência da vítima seja contínua, mesmo em casos de interrupção do fluxo ou reinício do \textit{bot}.
+
+\subsubsection{Diferenciais de Projeto}
+
+Alguns recursos foram incorporados ao \textit{bot} com o objetivo de aumentar a utilidade prática do sistema:
+
+\begin{itemize}
+    \item \textbf{Palavras-chave}: termos como \textit{``pizza''} ou \textit{``açaí''} são interpretados como indicativos de que a violência está ocorrendo no momento do contato, disparando fluxos de resposta imediata.
+    \item \textbf{Confirmação progressiva}: o \textit{bot} apresenta ao usuário um resumo parcial das informações já coletadas e pergunta se deseja complementar, evitando perda de dados importantes.
+    \item \textbf{Suporte multimodal}: integração nativa de texto, áudio, imagens e localização em um único fluxo conversacional.
+\end{itemize}
+
+Esse módulo representa a face visível do sistema, permitindo que a vítima interaja de maneira simples, segura e multimodal com o \textit{chatbot} por meio do \textit{Telegram}.
+
+\subsection{Módulo de Banco de Dados}
+
+O banco de dados adotado no sistema é o \textit{PostgreSQL}, escolhido pela robustez, compatibilidade com bibliotecas modernas e suporte a operações complexas. Ele é responsável por armazenar tanto os dados estruturados das ocorrências quanto o estado de interação com os usuários do \textit{chatbot}.
+
+A arquitetura de dados, ilustrada na Figura~\ref{fig:diagrama-banco}, foi projetada para garantir a persistência e a recuperação do fluxo conversacional. Ela é composta por três tabelas principais. A tabela \texttt{greeted\_users} que armazena o \texttt{chat\_id} de cada usuário e sinalizadores de estado, \texttt{in\_edition} e \texttt{waiting\_message}. Sua função é permitir que, em caso de interrupção ou reinício do \textit{bot}, o sistema possa identificar se uma conversa estava em andamento. Para dar continuidade, o \textit{bot} consulta a tabela \texttt{messages}, que armazena o conteúdo bruto, texto, áudio, localização, de todas as interações trocadas.
+
+Finalmente, a tabela \texttt{finised\_ocs} armazena a ocorrência consolidada e estruturada, somente após ela ter sido processada pelos agentes de PLN.\@ É esta tabela que serve como fonte de dados primária para as análises e visualizações apresentadas no \textit{dashboard}. Além disso, a utilização do \textit{pgAdmin}, acessível via contêiner Docker, facilita o gerenciamento, inspeção e validação dos dados durante o desenvolvimento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/CAP5/diagrama.drawio.png} %_ (ajuste o caminho se necessário)
+    \caption{Diagrama de entidade e relacionamento do banco de dados.}
+    \footnotesize{Fonte: Produção da Autora.}\label{fig:diagrama-banco}
+\end{figure}
+
+\subsection{Módulo de Dashboard}
+
+O \textit{dashboard} de monitoramento foi implementado em Python utilizando a biblioteca \texttt{Streamlit}, permitindo a criação rápida de uma interface interativa para a análise dos dados provenientes da tabela \texttt{finised\_ocs}. Esse módulo tem caráter complementar, servindo como apoio para pesquisadores e profissionais que possam vir a acompanhar o sistema.
+
+Conforme detalhado no Capítulo~\ref{Cap:ExperimentosResultados}, a interface permite a filtragem de ocorrências por período de registro, tipo de crime, nome da vítima ou palavras-chave presentes no relato. A interface foi desenhada para fornecer três níveis de análise:r
+
+Primeiro, uma análise geoespacial, que exibe um mapa interativo com a distribuição geográfica das ocorrências, permitindo a identificação de pontos de calor de violência.
+
+Segundo, uma análise estatística e temporal, que apresenta o número total de registros, gráficos de linha sobre a evolução das ocorrências ao longo dos meses, e gráficos de barras que classificam os tipos de crime mais frequentes.
+
+Terceiro, uma análise de padrões e relações, que inclui a distribuição de ocorrências por dia da semana e um \textit{heatmap} (mapa de calor) de coocorrência, que ilustra a frequência com que diferentes tipos de violência são relatados conjuntamente. Por meio dele, as informações coletadas são apresentadas de forma clara, favorecendo a análise situacional e o suporte à tomada de decisão.
+
+
+\section{INTEGRAÇÃO E TESTES}
+
+A integração consistiu na conexão dos módulos de PLN e do \textit{Bot} no \textit{Telegram}, garantindo que as informações fluíssem corretamente entre eles. O processo de testes foi realizado de forma incremental, iniciando com testes unitários para validar cada módulo de forma isolada. Em seguida, foram executados testes integrados para verificar a comunicação entre os diferentes módulos do sistema.
+
+Por fim, a etapa de testes funcionais simulou interações reais com usuários, o que permitiu avaliar a clareza, o tempo de resposta e a adequação das mensagens do \textit{chatbot}. Todos os testes foram realizados em ambiente controlado, utilizando contas de teste no \textit{Telegram} e cenários simulados de conversas. Essa abordagem permitiu identificar e realizar os ajustes necessários antes de uma eventual implantação futura.

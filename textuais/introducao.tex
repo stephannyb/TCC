@@ -1,0 +1,48 @@
+%
+%% Capítulo Introducao
+%%
+\mychapter{INTRODUÇÃO}\label{Cap:Introducao}
+
+Este projeto descreve o desenvolvimento de um \textit{chatbot} inteligente no \textit{Telegram}, que integra Modelos de Linguagem de Grande Escala (\textit{Large Language Model} \- LLM\nomenclature{LLM}{Large Language Model}). A ferramenta que tratamos neste trabalho foi projetada especificamente para oferecer acolhimento e facilitar o registro de ocorrências de violência doméstica contra a mulher, permitindo que as vítimas relatem casos com maior segurança, sigilo e facilidade, superando algumas barreiras iniciais no acesso à justiça.
+
+Para a clareza da exposição, é fundamental estabelecer duas definições centrais a este trabalho. Primeiramente, entende-se por \textit{chatbot} um programa de computador que simula a conversação humana para automatizar tarefas e fornecer informações. Em segundo lugar, a violência contra a mulher é compreendida como qualquer ato baseado no gênero que resulte em dano físico, sexual ou psicológico, representando uma grave violação dos direitos humanos.
+
+\begin{figure}[ht]
+	\includegraphics[width=0.48\textwidth, keepaspectratio=true]{figuras/Intro/diagrama.png}
+	\centering
+	\caption[Diagrama Preliminar]{Diagrama Preliminar.}
+	\footnotesize{Fonte: Produção da Autora.}\label{fig:diagrama.png}
+\end{figure}
+\FloatBarrier%
+
+Além de servir como um canal de comunicação mais acessível para contatar os órgãos de segurança pública, conforme ilustrado na~\autoref{fig:diagrama.png}, o sistema também poderá se tornar uma fonte de dados, os quais podem subsidiar a adaptação e o desenvolvimento de políticas públicas mais eficazes no combate à violência contra a mulher.
+
+\section{MOTIVAÇÃO}
+A violência doméstica é uma das mais graves violações aos direitos humanos no Brasil. De acordo com o Anuário Brasileiro de Segurança Pública~\cite{forum2023}, cresceram todas as modalidades de violência contra a mulher. E segundo o painel estatístico do Ministério da Justiça e Segurança Pública, durante o ano de 2024 foram registradas 1.510 mortes de mulheres em decorrência de feminicídios~\cite{mj2024painel}. Apesar do aumento de campanhas de conscientização, muitas vítimas ainda enfrentam obstáculos para denunciar seus agressores \- entre eles, o medo, a vergonha, a dependência econômica ou emocional e a dificuldade de acesso aos meios de denúncia convencionais.
+
+Esse cenário revela a urgência por soluções tecnológicas inovadoras, que ofereçam segurança, orientação e acolhimento às vítimas. O presente projeto propõe o uso de um \textit{chatbot} inteligente baseado em Modelos de Linguagem de Grande Escala, como o GPT-4, capaz de receber informações, identificar e classificar automaticamente ocorrências de violência conforme os tipos previstos na Lei Maria da Penha~\cite{LeiMariaDaPenha}.
+
+\section{OBJETIVOS}
+Este trabalho tem como objetivo desenvolver um sistema baseado em Inteligência Artificial (IA) para a captação, categorização e encaminhamento de ocorrências de violência doméstica contra a mulher, com foco no acolhimento inicial, na orientação das vítimas e na organização de dados úteis para órgãos públicos e entidades da sociedade civil.
+
+A solução será implementada por meio de um \textit{chatbot} acessível pelo aplicativo \textit{Telegram}, visando garantir usabilidade e segurança para as usuárias. E contará com uma Interface de Programação de Aplicação (\textit{Application Programming Interface} \- API\nomenclature{API}{Application Programming Interface}) integrada a modelos de linguagem natural, responsável por interpretar as mensagens, classificar os relatos e encaminhá-los de forma adequada. Conforme ilustrado na~\autoref{fig:2.png}. 
+
+
+\subsection{Objetivos Específicos}
+
+Para alcançar o objetivo geral, foram definidos três objetivos específicos interligados. O primeiro consiste em desenvolver um \textit{chatbot} integrado ao aplicativo \textit{Telegram}, projetado para captar relatos de violência doméstica de forma segura e acessível, garantindo a privacidade das vítimas durante todo o processo de comunicação.
+
+O segundo objetivo é integrar esse \textit{chatbot} a uma API equipada com Inteligência Artificial, baseada em LLM.\@ Essa integração tem a finalidade de interpretar e categorizar os relatos recebidos, além de oferecer orientações iniciais às vítimas e direcioná-las adequadamente aos órgãos competentes.
+
+Por fim, o terceiro objetivo visa organizar e estruturar os dados obtidos de modo a torná-los acessíveis e úteis para órgãos de segurança pública, organizações não governamentais e instituições de apoio. Essa estruturação busca contribuir para a formulação e o aprimoramento de políticas públicas de enfrentamento à violência de gênero, em conformidade com a Lei Maria da Penha e demais diretrizes legais vigentes.
+
+\begin{figure}[ht]
+	\includegraphics[width=0.6\textwidth, keepaspectratio=true]{figuras/Intro/2.png}
+	\centering
+	\caption[Diagrama de Fluxo]{Diagrama de Fluxo.}
+	\footnotesize{Fonte: Produção da Autora.}\label{fig:2.png}
+\end{figure}
+\FloatBarrier%
+
+\section{ESTRUTURA DO TRABALHO}
+Este trabalho está estruturado em capítulos, sendo o primeiro uma introdução sobre o tema, mostrando os fatores que motivam a implantação da ideia, além da justificativa e dos objetivos. Em sequência, o capítulo~\ref{Cap:Teoria} aborda o referencial teórico. Os trabalhos relacionados e o problema são abordados nos capítulos~\ref{Cap:TrabalhosRelacionados} e~\ref{Cap:Problema} respectivamente. O capítulo~\ref{Cap:Implementacao}, por sua vez, explica a metodologia para desenvolvimento do \textit{chatbot} inteligente, enquanto o capítulo~\ref{Cap:ExperimentosResultados} trata dos resultados. Por fim, o capítulo~\ref{Cap:Conclusao} traz as principais conclusões e contribuições deste trabalho.
