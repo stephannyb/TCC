@@ -1,4 +1,4 @@
-%%
+%
 %% Capítulo 5: Implementacao
 %%
 
@@ -174,10 +174,13 @@ A seguir, um exemplo da organização dos campos:
 A seguir são apresentados os principais objetos que compõem o JSON da ocorrência:
 
 \begin{itemize}
-    \item \textbf{dados\_localizacao}: inclui parâmetros como \texttt{tipo\_local}, \texttt{nome\_municipio}, \texttt{sigla\_uf}, \texttt{longitude} e \texttt{latitude}.
+    \item \textbf{dados\_localizacao}: inclui parâmetros como \texttt{tipo\_local}, \texttt{nome\_municipio}, \\ 
+    \texttt{sigla\_uf}, \texttt{longitude} e \texttt{latitude}.
     \item \textbf{dados\_data\_hora}: registra data e hora do registro e do acontecimento.
     \item \textbf{dados\_vitima}, \textbf{dados\_testemunhas} e \textbf{dados\_envolvidos}: armazenam informações pessoais (nome, idade, documento de identificação, contatos).
-    \item \textbf{dados\_crime}: subdividido em \texttt{violencia\_fisica}, \texttt{violencia\_moral}, \texttt{violencia\_psicologica}, \texttt{violencia\_sexual}, \texttt{violencia\_patrimonial} e \texttt{feminicidio}, cada qual com indicadores booleanos e registros de data/hora.
+    \item \textbf{dados\_crime}: subdividido em \texttt{violencia\_fisica}, \texttt{violencia\_moral}, \\
+    \texttt{violencia\_psicologica}, \texttt{violencia\_sexual}, \texttt{violencia\_patrimonial} e \\ 
+    \texttt{feminicidio}, cada qual com indicadores booleanos e registros de data/hora.
 \end{itemize}
 
 Essa modelagem garante que os relatos informais enviados pelas vítimas ao \textit{chatbot} sejam transformados em registros estruturados, com potencial para posterior análise estatística, integração com bancos de dados policiais ou utilização em estudos sobre violência de gênero.
@@ -315,8 +318,10 @@ const askWhatToDo = {
         reply_markup: {
             inline_keyboard: [
                 [
-                    { text: "Registrar uma ocorrência", callback_data: "register" },
-                    { text: "Quero saber mais", callback_data: "more_info" }
+                    { text: "Registrar uma ocorrência", 
+                        callback_data: "register" },
+                    { text: "Quero saber mais", 
+                        callback_data: "more_info" }
                 ]
             ]
         }
